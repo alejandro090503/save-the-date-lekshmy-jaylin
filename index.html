@@ -242,7 +242,7 @@ h2.ttl{font-family:var(--display);font-size:33px;line-height:1.24;letter-spacing
 /* ══════ TARJETA DEL DÍA — rejilla simétrica ══════ */
 .day-card{padding:38px 22px 36px}
 .datebox{
-  display:grid;grid-template-columns:1fr 1px auto 1px 1fr;
+  display:grid;grid-template-columns:minmax(0,1fr) 1px auto 1px minmax(0,1fr);
   align-items:center;justify-items:center;
   column-gap:14px;margin:20px auto 0;max-width:340px;
 }
@@ -364,6 +364,11 @@ footer::before{
   .day-card{padding:46px 34px 42px}
   .portrait{width:258px;height:258px}
 }
+
+/* simetría óptica: compensar el letter-spacing final de los textos centrados */
+.eyebrow{padding-left:.3em}.cd-head{padding-left:.28em}.d-lbl{padding-left:.2em}
+.cd-lbl{padding-left:.12em}.xv-txt{padding-left:.26em}.cue-txt{padding-left:.28em}
+.gate-cta{padding-left:.24em}.gate-name{padding-left:.16em}.f-date{padding-left:.14em}
 </style>
 </head>
 <body>
