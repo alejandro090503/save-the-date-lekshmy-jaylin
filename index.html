@@ -34,6 +34,7 @@
   --serif:'Cormorant Garamond',Garamond,serif;
   --script:'Great Vibes',cursive;
   --sans:'Jost',system-ui,sans-serif;
+  --fade:120px;           /* largo del difuminado entre secciones (px, no %) */
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -41,14 +42,12 @@ body{
   background:var(--paper);
   color:var(--ink);
   font-family:var(--serif);
-  font-weight:500;
-  font-size:18px;
-  line-height:1.6;
+  font-weight:500;font-size:18px;line-height:1.6;
   overflow-x:hidden;
 }
 img{display:block;max-width:100%}
 
-/* ══ ACABADO METÁLICO ══ */
+/* ══════ ACABADO METÁLICO ══════ */
 .metal{
   background:linear-gradient(100deg,
     #F7E7CE 0%, #E3C79A 18%, #B87333 42%,
@@ -62,28 +61,24 @@ img{display:block;max-width:100%}
 @keyframes sweep{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @media (prefers-reduced-motion:reduce){.metal{animation:none}}
 
-/* ══ PUERTA DE APERTURA ══ */
+/* ══════ PUERTA ══════ */
 #gate{
   position:fixed;inset:0;z-index:90;
-  background:
-    radial-gradient(120% 90% at 50% 18%,rgba(247,231,206,.55),transparent 62%),
-    linear-gradient(170deg,#FFF1FD 0%,#FEFFED 58%,#F7E7CE 100%);
+  background:linear-gradient(170deg,#FFF1FD 0%,#FEFFED 58%,#F7E7CE 100%);
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:opacity .9s ease,visibility .9s;
-  padding:28px;
+  cursor:pointer;transition:opacity 1s ease,visibility 1s;padding:28px;
 }
 #gate.gone{opacity:0;visibility:hidden;pointer-events:none}
 .gate-leaf{
   position:absolute;inset:0;
-  background:url('botanica2.png') center/cover no-repeat;
-  opacity:.16;
+  background:url('ink-hero.jpg') center/cover no-repeat;opacity:.5;
 }
+.gate-veil{position:absolute;inset:0;background:radial-gradient(64% 46% at 50% 50%,rgba(255,250,246,.94),rgba(255,241,253,.55) 70%,rgba(255,241,253,.2))}
 .gate-card{
-  position:relative;text-align:center;
-  padding:46px 34px 40px;
+  position:relative;text-align:center;padding:46px 34px 40px;
   border:1px solid var(--border);
-  background:rgba(254,255,237,.72);
-  box-shadow:0 22px 60px rgba(120,75,20,.16);
+  background:rgba(254,255,237,.78);
+  box-shadow:0 22px 60px rgba(120,75,20,.18);
   max-width:330px;width:100%;
   animation:gateIn 1.1s cubic-bezier(.2,.7,.3,1) both;
 }
@@ -94,15 +89,9 @@ img{display:block;max-width:100%}
 }
 .gate-card::before{top:9px;left:9px;border-right:0;border-bottom:0}
 .gate-card::after{bottom:9px;right:9px;border-left:0;border-top:0}
-.gate-mono{
-  font-family:var(--display);font-size:66px;line-height:1;
-  letter-spacing:.04em;display:block;margin-bottom:6px;
-}
+.gate-mono{font-family:var(--display);font-size:66px;line-height:1;letter-spacing:.04em;display:block;margin-bottom:6px}
 .gate-amp{font-family:var(--script);font-size:26px;color:var(--gold);display:block;margin:2px 0 14px}
-.gate-name{
-  font-family:var(--display);font-size:21px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--gold-dk);
-}
+.gate-name{font-family:var(--display);font-size:21px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dk)}
 .gate-rule{width:74px;height:1px;background:var(--border);margin:18px auto}
 .gate-cta{
   font-family:var(--sans);font-weight:500;font-size:13px;
@@ -111,7 +100,7 @@ img{display:block;max-width:100%}
 }
 @keyframes pulse{0%,100%{opacity:.62}50%{opacity:1}}
 
-/* ══ PARTÍCULAS ══ */
+/* ══════ PARTÍCULAS ══════ */
 #petals{position:fixed;inset:0;pointer-events:none;z-index:6;overflow:hidden}
 .petal{
   position:absolute;border-radius:60% 40% 55% 45%;
@@ -119,36 +108,60 @@ img{display:block;max-width:100%}
   opacity:0;animation:fall linear infinite;
 }
 @keyframes fall{
-  0%{opacity:0;transform:translateY(-8vh) rotate(0deg)}
-  12%{opacity:.85}
-  88%{opacity:.5}
+  0%{opacity:0;transform:translateY(-8vh) rotate(0)}
+  12%{opacity:.8}88%{opacity:.45}
   100%{opacity:0;transform:translateY(108vh) rotate(420deg)}
 }
 
-/* ══ ESTRUCTURA ══ */
+/* ══════ SECCIONES + FUNDIDO PREMIUM ══════
+   Todas comparten el mismo papel de fondo, así que la costura
+   entre secciones nunca es un corte de color: solo la textura
+   se disuelve con una máscara vertical de largo fijo en px.     */
 #page{opacity:0;transition:opacity 1s ease}
 #page.on{opacity:1}
-.sec{padding:76px 26px;position:relative;overflow:hidden}
-.sec-bg{
-  position:absolute;inset:0;background-size:cover;background-position:center;
-  pointer-events:none;
+.sec{
+  position:relative;padding:86px 26px;overflow:hidden;
+  background:var(--paper);
 }
-.wrap{position:relative;max-width:520px;margin:0 auto;text-align:center}
+.tex{
+  position:absolute;inset:0;pointer-events:none;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,
+      transparent 0, #000 var(--fade),
+      #000 calc(100% - var(--fade)), transparent 100%);
+  mask-image:linear-gradient(to bottom,
+      transparent 0, #000 var(--fade),
+      #000 calc(100% - var(--fade)), transparent 100%);
+}
+/* velo de papel encima de la textura para que el texto siempre gane */
+.veil{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(78% 52% at 50% 50%,
+    rgba(255,248,250,.86) 0%, rgba(255,241,253,.52) 58%, rgba(255,241,253,.18) 100%);
+}
+/* costura: el papel sube y baja sobre la textura vecina */
+.sec::before,.sec::after{
+  content:'';position:absolute;left:0;right:0;height:var(--fade);
+  pointer-events:none;z-index:2;
+}
+.sec::before{top:0;background:linear-gradient(to bottom,var(--paper) 0%,rgba(255,241,253,.55) 55%,rgba(255,241,253,0) 100%)}
+.sec::after{bottom:0;background:linear-gradient(to top,var(--paper) 0%,rgba(255,241,253,.55) 55%,rgba(255,241,253,0) 100%)}
+.wrap{position:relative;z-index:3;max-width:520px;margin:0 auto;text-align:center}
 
-/* ══ HERO ══ */
+/* ══════ HERO ══════ */
 #hero{
   min-height:100svh;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  padding:92px 26px 108px;position:relative;overflow:hidden;
-  background:
-    radial-gradient(130% 80% at 50% 8%,rgba(247,231,206,.7),transparent 60%),
-    linear-gradient(165deg,#FFF1FD 0%,#FEFFED 55%,#FBF0DC 100%);
+  padding:96px 26px 112px;
 }
-#hero .sec-bg{background-image:url('botanica1.png');opacity:.17}
-.hero-frame{
-  position:absolute;inset:18px;border:1px solid var(--border-soft);
-  pointer-events:none;
+#hero .tex{
+  background-image:url('ink-hero.jpg');
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 200px),transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0,#000 calc(100% - 200px),transparent 100%);
 }
+#hero::before{display:none}
+#hero::after{height:200px}
+.hero-frame{position:absolute;inset:18px;border:1px solid var(--border-soft);pointer-events:none;z-index:3}
 .hero-corner{position:absolute;width:26px;height:26px;border:1.4px solid var(--copper);opacity:.6}
 .hc-tl{top:-1px;left:-1px;border-right:0;border-bottom:0}
 .hc-tr{top:-1px;right:-1px;border-left:0;border-bottom:0}
@@ -156,202 +169,200 @@ img{display:block;max-width:100%}
 .hc-br{bottom:-1px;right:-1px;border-left:0;border-top:0}
 .eyebrow{
   font-family:var(--sans);font-weight:500;font-size:13px;
-  letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dk);
-  display:block;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dk);display:block;
 }
 .hero-eyebrow{margin-bottom:22px}
-.hero-name{
-  font-family:var(--display);line-height:1.02;
-  font-size:clamp(50px,15.5vw,82px);letter-spacing:.02em;display:block;
-}
-.hero-name2{
-  font-family:var(--display);line-height:1.05;
-  font-size:clamp(34px,10vw,54px);letter-spacing:.06em;display:block;margin-top:2px;
-}
-.hero-xv{
-  display:flex;align-items:center;justify-content:center;gap:14px;
-  margin:22px auto 20px;max-width:330px;
-}
+.hero-name{font-family:var(--display);line-height:1.02;font-size:clamp(50px,15.5vw,82px);letter-spacing:.02em;display:block}
+.hero-name2{font-family:var(--display);line-height:1.05;font-size:clamp(34px,10vw,54px);letter-spacing:.06em;display:block;margin-top:2px}
+.hero-xv{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 20px;max-width:330px}
 .xv-bar{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
-.xv-txt{
-  font-family:var(--sans);font-weight:500;font-size:14px;
-  letter-spacing:.26em;text-transform:uppercase;color:var(--gold-dk);white-space:nowrap;
-}
-.hero-date{
-  font-family:var(--serif);font-weight:600;font-size:22px;
-  color:var(--ink);letter-spacing:.03em;
-}
-.hero-place{
-  font-family:var(--serif);font-style:italic;font-weight:600;
-  font-size:19px;color:var(--ink-soft);margin-top:6px;
-}
-.scroll-cue{
-  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
-  text-align:center;
-}
-.cue-txt{
-  font-family:var(--sans);font-weight:500;font-size:11px;
-  letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dk);
-  display:block;margin-bottom:8px;opacity:.85;
-}
-.cue-chev{
-  display:block;width:11px;height:11px;margin:0 auto;
-  border-right:1.4px solid var(--copper);border-bottom:1.4px solid var(--copper);
-  transform:rotate(45deg);animation:bob 1.8s ease-in-out infinite;
-}
+.xv-txt{font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-dk);white-space:nowrap}
+.hero-date{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:.03em}
+.hero-place{font-family:var(--serif);font-style:italic;font-weight:600;font-size:19px;color:var(--ink-soft);margin-top:6px}
+.scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);text-align:center;z-index:4}
+.cue-txt{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dk);display:block;margin-bottom:8px;opacity:.85}
+.cue-chev{display:block;width:11px;height:11px;margin:0 auto;border-right:1.4px solid var(--copper);border-bottom:1.4px solid var(--copper);transform:rotate(45deg);animation:bob 1.8s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
 
-/* ══ ORNAMENTO ══ */
+/* ══════ ORNAMENTO ══════ */
 .orn{display:flex;align-items:center;justify-content:center;gap:9px;margin:20px auto}
 .orn-line{width:56px;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
 .orn-d{width:7px;height:7px;background:var(--copper);transform:rotate(45deg);opacity:.85}
 .orn-s{width:4px;height:4px;background:var(--gold);transform:rotate(45deg);opacity:.7}
 
-/* ══ TARJETAS ══ */
+/* ══════ TARJETAS ══════ */
 .card{
-  position:relative;background:var(--cream);
+  position:relative;background:rgba(254,255,237,.93);
   border:1px solid var(--border-soft);
   box-shadow:0 18px 48px rgba(120,75,20,.13);
-  padding:40px 28px 38px;max-width:430px;margin:0 auto;
+  padding:40px 26px 38px;max-width:430px;margin:0 auto;
+  backdrop-filter:blur(2px);
 }
-.card::before,.card::after{
-  content:'';position:absolute;width:20px;height:20px;
-  border:1px solid var(--copper);opacity:.55;
-}
+.card::before,.card::after{content:'';position:absolute;width:20px;height:20px;border:1px solid var(--copper);opacity:.55}
 .card::before{top:8px;left:8px;border-right:0;border-bottom:0}
 .card::after{bottom:8px;right:8px;border-left:0;border-top:0}
-h2.ttl{
-  font-family:var(--display);font-size:33px;line-height:1.24;
-  letter-spacing:.02em;margin-top:8px;
-}
-.p{
-  font-size:18px;line-height:1.72;font-weight:500;
-  color:var(--ink);margin-top:18px;
-}
-.sig{
-  font-family:var(--script);font-size:33px;color:var(--gold-dk);
-  margin-top:18px;line-height:1.3;
-}
+h2.ttl{font-family:var(--display);font-size:33px;line-height:1.24;letter-spacing:.02em;margin-top:8px}
+.p{font-size:18px;line-height:1.72;font-weight:500;margin-top:18px}
+.sig{font-family:var(--script);font-size:33px;color:var(--gold-dk);margin-top:18px;line-height:1.3}
 
-/* ══ RETRATO ══ */
+/* ══════ RETRATO CIRCULAR ══════ */
 .portrait{
-  position:relative;width:min(280px,76vw);margin:0 auto 6px;
-  padding:9px;background:var(--cream);
+  position:relative;width:232px;height:232px;margin:0 auto 34px;
+  border-radius:50%;
+}
+.portrait::before{
+  content:'';position:absolute;inset:-14px;border-radius:50%;
   border:1px solid var(--border);
-  box-shadow:0 20px 48px rgba(120,75,20,.18);
 }
-.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.portrait::after{
+  content:'';position:absolute;inset:-26px;border-radius:50%;
+  background:radial-gradient(circle,rgba(247,231,206,.55),transparent 68%);
+  z-index:-1;
+}
+.pf{
+  position:absolute;inset:0;border-radius:50%;overflow:hidden;
+  border:3px solid transparent;
+  background:linear-gradient(140deg,#F7E7CE,#B87333 45%,#F2DFBE 60%,#7A4A16) border-box;
+  box-shadow:0 16px 40px rgba(120,75,20,.26);
+}
+.pf img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  border-radius:50%;
+  opacity:0;transition:opacity 2.4s ease;
+}
+.pf img.on{opacity:1}
 .portrait-tag{
-  position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);
+  position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);
   background:var(--paper);border:1px solid var(--border);
-  padding:5px 18px;font-family:var(--sans);font-weight:500;
-  font-size:12px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold-dk);white-space:nowrap;
+  padding:5px 18px;font-family:var(--sans);font-weight:500;font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);white-space:nowrap;
+  z-index:2;
 }
 
-/* ══ CAJA DE FECHA ══ */
+/* ══════ TARJETA DEL DÍA — rejilla simétrica ══════ */
+.day-card{padding:38px 22px 36px}
 .datebox{
-  display:flex;align-items:center;justify-content:center;gap:18px;
-  margin:6px auto 0;
+  display:grid;grid-template-columns:1fr 1px auto 1px 1fr;
+  align-items:center;justify-items:center;
+  column-gap:14px;margin:20px auto 0;max-width:340px;
 }
-.dcol{display:flex;flex-direction:column;gap:3px;min-width:76px}
-.d-dow,.d-mon{
-  font-family:var(--sans);font-weight:500;font-size:14px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);
-}
-.d-yr{font-family:var(--serif);font-weight:600;font-size:19px;color:var(--ink-soft)}
-.d-num{
-  font-family:var(--display);font-size:72px;line-height:.92;letter-spacing:0;
-}
-.d-city{
-  font-family:var(--serif);font-style:italic;font-weight:600;
-  font-size:19px;color:var(--ink-soft);margin-top:4px;
-}
+.dsep{width:1px;height:58px;background:linear-gradient(to bottom,transparent,var(--border),transparent)}
+.dcol{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:74px}
+.d-lbl{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);line-height:1.2}
+.d-yr{font-family:var(--serif);font-weight:600;font-size:19px;color:var(--ink-soft);line-height:1.2}
+.d-num{font-family:var(--display);font-size:76px;line-height:.86;display:block}
+.d-city{font-family:var(--serif);font-style:italic;font-weight:600;font-size:19px;color:var(--ink-soft)}
 
-/* ══ CUENTA REGRESIVA ══ */
-.cd-head{
-  font-family:var(--sans);font-weight:500;font-size:13px;
-  letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dk);
-  margin-top:8px;
+/* ══════ CUENTA REGRESIVA — 4 columnas idénticas ══════ */
+.cd-head{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dk);margin-top:10px}
+.cd{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:12px;margin:20px auto 0;max-width:340px;
 }
-.cd{display:flex;justify-content:center;gap:10px;margin-top:18px}
-.cd-unit{flex:1;max-width:84px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:9px}
 .cd-dial{position:relative;width:100%;aspect-ratio:1}
-.cd-dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+.cd-dial svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
 .cd-track{fill:none;stroke:rgba(153,101,21,.16);stroke-width:3}
-.cd-prog{
-  fill:none;stroke:var(--copper);stroke-width:3;stroke-linecap:round;
-  transition:stroke-dashoffset .6s ease;
-}
+.cd-prog{fill:none;stroke:var(--copper);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
 .cd-tick{stroke:rgba(153,101,21,.32);stroke-width:1.4}
 .cd-val{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:var(--display);font-size:27px;color:var(--ink);
+  font-family:var(--display);font-size:clamp(20px,6.4vw,27px);color:var(--ink);
+  line-height:1;font-variant-numeric:tabular-nums;
 }
 .cd-lbl{
-  font-family:var(--sans);font-weight:500;font-size:12px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dk);
+  font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold-dk);line-height:1.2;text-align:center;
 }
-
 .note{
   display:inline-block;margin-top:22px;
-  border:1px solid var(--border);background:rgba(247,231,206,.42);
-  padding:11px 20px;font-family:var(--serif);font-weight:600;
-  font-size:17px;color:var(--ink);line-height:1.5;
+  border:1px solid var(--border);background:rgba(247,231,206,.5);
+  padding:11px 20px;font-family:var(--serif);font-weight:600;font-size:17px;line-height:1.5;
 }
 
-/* ══ FOOTER ══ */
-footer{
-  text-align:center;padding:60px 26px 46px;position:relative;overflow:hidden;
-  background:linear-gradient(180deg,#FBF0DC 0%,#F7E7CE 100%);
+/* ══════ FOOTER ══════ */
+footer{position:relative;text-align:center;padding:72px 26px 52px;overflow:hidden;background:var(--paper)}
+footer .tex{
+  background-image:url('ink-footer.jpg');
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade),#000 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 var(--fade),#000 100%);
 }
-footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
-.f-mono{
-  font-family:var(--display);font-size:52px;line-height:1;
-  letter-spacing:.06em;display:block;
+footer::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:var(--fade);z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,var(--paper) 0%,rgba(255,241,253,.55) 55%,rgba(255,241,253,0) 100%);
 }
-.f-date{
-  font-family:var(--serif);font-weight:600;font-size:19px;
-  color:var(--ink);letter-spacing:.14em;margin-top:14px;
-}
+.f-mono{font-family:var(--display);font-size:52px;line-height:1;letter-spacing:.06em;display:block}
+.f-date{font-family:var(--serif);font-weight:600;font-size:19px;letter-spacing:.14em;margin-top:14px}
 .f-hr{width:110px;height:1px;background:var(--border);margin:24px auto}
-.credit{
-  font-family:var(--sans);font-weight:500;font-size:13px;
-  letter-spacing:.14em;color:var(--ink-soft);
-}
+.credit{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.14em;color:var(--ink-soft)}
 .credit a{color:var(--gold-dk);text-decoration:none;border-bottom:1px solid var(--border)}
 
-/* ══ MÚSICA ══ */
+/* ══════ VINILO PREMIUM ══════ */
 .vinyl-btn{
-  position:fixed;right:16px;bottom:16px;z-index:40;
-  width:54px;height:54px;border-radius:50%;border:1px solid var(--border);
-  background:var(--cream);box-shadow:0 8px 22px rgba(120,75,20,.24);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  padding:0;
+  position:fixed;right:15px;bottom:15px;z-index:40;
+  width:64px;height:64px;border:0;background:none;padding:0;cursor:pointer;
+  filter:drop-shadow(0 10px 22px rgba(80,48,10,.34));
 }
-.vinyl-disc{
-  width:38px;height:38px;border-radius:50%;
-  background:repeating-radial-gradient(circle,#4a3526 0 1px,#2e2118 1px 3px);
-  display:flex;align-items:center;justify-content:center;
-  animation:spin 3.6s linear infinite;animation-play-state:paused;
+.vinyl-plate{
+  position:absolute;inset:0;border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,.1) 0 22%,transparent 23%),
+    repeating-radial-gradient(circle at 50% 50%,
+      #2a1d15 0 1.1px, #14100d 1.1px 2.4px),
+    #14100d;
+  box-shadow:inset 0 0 0 1px rgba(247,231,206,.28), inset 0 6px 16px rgba(0,0,0,.6);
+  animation:spin 4.2s linear infinite;animation-play-state:paused;
 }
-.vinyl-btn.playing .vinyl-disc{animation-play-state:running}
+.vinyl-btn.playing .vinyl-plate{animation-play-state:running}
 @keyframes spin{to{transform:rotate(360deg)}}
-.vinyl-label{
-  width:15px;height:15px;border-radius:50%;
-  background:linear-gradient(140deg,var(--champagne),var(--copper));
-  font-family:var(--sans);font-size:6px;font-weight:500;color:#3B2A24;
-  display:flex;align-items:center;justify-content:center;letter-spacing:.04em;
+.vinyl-sheen{
+  position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 210deg,
+    transparent 0deg, rgba(247,231,206,.42) 26deg, transparent 62deg,
+    transparent 180deg, rgba(247,231,206,.3) 208deg, transparent 244deg);
+  mix-blend-mode:screen;
 }
+.vinyl-label{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:25px;height:25px;border-radius:50%;
+  background:linear-gradient(140deg,#F7E7CE 0%,#C99A4E 38%,#996515 62%,#7A4A16 100%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.35) inset, 0 1px 4px rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:11px;color:#3B2A24;letter-spacing:.02em;
+}
+.vinyl-hole{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:5px;height:5px;border-radius:50%;background:#FFF1FD;
+  box-shadow:0 0 0 1px rgba(0,0,0,.45);z-index:2;
+}
+.vinyl-ring{
+  position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(184,115,51,.55);
+  opacity:0;transition:opacity .4s ease;
+}
+.vinyl-btn.playing .vinyl-ring{opacity:1;animation:ripple 2.6s ease-out infinite}
+@keyframes ripple{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.32);opacity:0}}
+.vinyl-arm{
+  position:absolute;top:2px;right:0px;width:30px;height:30px;z-index:3;
+  transform:rotate(-26deg);transform-origin:86% 14%;
+  transition:transform .55s cubic-bezier(.3,.8,.3,1);
+}
+.vinyl-btn.playing .vinyl-arm{transform:rotate(6deg)}
+.arm-pivot{position:absolute;top:0;right:0;width:9px;height:9px;border-radius:50%;background:linear-gradient(140deg,#F7E7CE,#996515)}
+.arm-line{position:absolute;top:5px;right:6px;width:22px;height:2px;border-radius:2px;background:linear-gradient(to left,#E3C79A,#8a5a1c);transform:rotate(38deg);transform-origin:right center}
+.arm-head{position:absolute;top:18px;right:19px;width:7px;height:4px;border-radius:1px;background:#7A4A16}
 
-/* ══ REVEAL ══ */
+/* ══════ REVEAL ══════ */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.3,1)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
 @media(min-width:620px){
-  .sec{padding:92px 32px}
+  :root{--fade:150px}
+  .sec{padding:104px 32px}
   .card{padding:48px 40px 44px}
+  .day-card{padding:46px 34px 42px}
+  .portrait{width:258px;height:258px}
 }
 </style>
 </head>
@@ -360,6 +371,7 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
 <!-- PUERTA -->
 <div id="gate" role="button" tabindex="0" aria-label="Toca para abrir">
   <div class="gate-leaf" aria-hidden="true"></div>
+  <div class="gate-veil" aria-hidden="true"></div>
   <div class="gate-card">
     <span class="gate-mono metal">LJ</span>
     <span class="gate-amp">Mis XV Años</span>
@@ -374,8 +386,9 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
 <div id="page">
 
   <!-- HERO -->
-  <section id="hero">
-    <div class="sec-bg" aria-hidden="true"></div>
+  <section id="hero" class="sec">
+    <div class="tex" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
     <div class="hero-frame" aria-hidden="true">
       <span class="hero-corner hc-tl"></span><span class="hero-corner hc-tr"></span>
       <span class="hero-corner hc-bl"></span><span class="hero-corner hc-br"></span>
@@ -385,28 +398,29 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
       <span class="hero-name metal rv">Lekshmy</span>
       <span class="hero-name2 metal rv">Jaylin</span>
       <div class="hero-xv rv">
-        <span class="xv-bar"></span>
-        <span class="xv-txt">Mis XV Años</span>
-        <span class="xv-bar"></span>
+        <span class="xv-bar"></span><span class="xv-txt">Mis XV Años</span><span class="xv-bar"></span>
       </div>
       <p class="hero-date rv">Domingo 30 de mayo de 2027</p>
       <p class="hero-place rv">Centerville, Ohio</p>
     </div>
     <div class="scroll-cue" aria-hidden="true">
-      <span class="cue-txt">Desliza</span>
-      <span class="cue-chev"></span>
+      <span class="cue-txt">Desliza</span><span class="cue-chev"></span>
     </div>
   </section>
 
   <!-- APARTA LA FECHA -->
   <section class="sec">
-    <div class="sec-bg" style="background-image:url('botanica2.png');opacity:.12" aria-hidden="true"></div>
+    <div class="tex" style="background-image:url('ink-top.jpg');background-position:center top" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
       <div class="portrait rv">
-        <img src="retrato.jpg" alt="Lekshmy Jaylin Torres" width="800" height="1000">
+        <div class="pf">
+          <img id="ph1" class="on" src="retrato1.jpg" alt="Lekshmy Jaylin Torres" width="700" height="700">
+          <img id="ph2" src="retrato2.jpg" alt="Lekshmy Jaylin Torres" width="700" height="700">
+        </div>
         <span class="portrait-tag">Lekshmy Jaylin</span>
       </div>
-      <div class="card rv" style="margin-top:34px">
+      <div class="card rv">
         <span class="eyebrow">Cumplo quince</span>
         <h2 class="ttl">Aparta la fecha</h2>
         <div class="orn"><span class="orn-line"></span><span class="orn-s"></span><span class="orn-d"></span><span class="orn-s"></span><span class="orn-line"></span></div>
@@ -418,14 +432,18 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
   </section>
 
   <!-- EL DÍA -->
-  <section class="sec" style="background:linear-gradient(180deg,#FBF0DC 0%,#FFF1FD 100%)">
+  <section class="sec">
+    <div class="tex" style="background-image:url('ink-corner.jpg')" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="card rv">
+      <div class="card day-card rv">
         <span class="eyebrow">El día</span>
-        <div class="datebox" style="margin-top:18px">
-          <div class="dcol"><span class="d-dow">Domingo</span></div>
+        <div class="datebox">
+          <div class="dcol"><span class="d-lbl">Domingo</span></div>
+          <span class="dsep" aria-hidden="true"></span>
           <div class="dcol"><span class="d-num metal">30</span></div>
-          <div class="dcol"><span class="d-mon">Mayo</span><span class="d-yr">2027</span></div>
+          <span class="dsep" aria-hidden="true"></span>
+          <div class="dcol"><span class="d-lbl">Mayo</span><span class="d-yr">2027</span></div>
         </div>
         <div class="orn"><span class="orn-line"></span><span class="orn-s"></span><span class="orn-d"></span><span class="orn-s"></span><span class="orn-line"></span></div>
         <p class="d-city">Centerville, Ohio</p>
@@ -494,7 +512,8 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
 
   <!-- PRÓXIMAMENTE -->
   <section class="sec">
-    <div class="sec-bg" style="background-image:url('botanica1.png');opacity:.12" aria-hidden="true"></div>
+    <div class="tex" style="background-image:url('ink-oval.jpg')" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
       <div class="card rv">
         <span class="eyebrow">Muy pronto</span>
@@ -508,7 +527,8 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
 
   <!-- FOOTER -->
   <footer>
-    <div class="sec-bg" aria-hidden="true"></div>
+    <div class="tex" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
       <span class="f-mono metal rv">LJ</span>
       <p class="f-date rv">30 · Mayo · 2027</p>
@@ -521,7 +541,14 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
 
 <audio id="music" loop preload="none" playsinline><source src="audio.mp3" type="audio/mpeg"></audio>
 <button class="vinyl-btn" id="musicBtn" type="button" aria-label="Reproducir música">
-  <span class="vinyl-disc"><span class="vinyl-label">LJ</span></span>
+  <span class="vinyl-ring" aria-hidden="true"></span>
+  <span class="vinyl-plate" aria-hidden="true"></span>
+  <span class="vinyl-sheen" aria-hidden="true"></span>
+  <span class="vinyl-label" aria-hidden="true">LJ</span>
+  <span class="vinyl-hole" aria-hidden="true"></span>
+  <span class="vinyl-arm" aria-hidden="true">
+    <span class="arm-pivot"></span><span class="arm-line"></span><span class="arm-head"></span>
+  </span>
 </button>
 
 <script>
@@ -530,7 +557,6 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
   var TARGET = new Date('2027-05-30T17:00:00-04:00').getTime();
   var started = false;
 
-  /* ── Pétalos ── */
   function petals(){
     var box = document.getElementById('petals');
     var n = window.innerWidth < 620 ? 14 : 22;
@@ -538,8 +564,7 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
       var p = document.createElement('span');
       p.className = 'petal';
       var s = 5 + Math.random()*8;
-      p.style.width = s+'px';
-      p.style.height = (s*0.72)+'px';
+      p.style.width = s+'px'; p.style.height = (s*0.72)+'px';
       p.style.left = (Math.random()*100)+'vw';
       p.style.animationDuration = (12 + Math.random()*14)+'s';
       p.style.animationDelay = (-Math.random()*22)+'s';
@@ -547,7 +572,6 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
     }
   }
 
-  /* ── Reveal ── */
   function reveal(){
     var els = document.querySelectorAll('.rv');
     if(!('IntersectionObserver' in window)){
@@ -560,13 +584,21 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
       });
     },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
     for(var j=0;j<els.length;j++) io.observe(els[j]);
-    /* red de seguridad: si el observer no dispara, todo visible */
-    setTimeout(function(){
-      for(var k=0;k<els.length;k++) els[k].classList.add('in');
-    }, 4000);
+    setTimeout(function(){ for(var k=0;k<els.length;k++) els[k].classList.add('in'); }, 4000);
   }
 
-  /* ── Cuenta regresiva ── */
+  /* retrato: crossfade suave cada 30 s */
+  function portrait(){
+    var a = document.getElementById('ph1'), b = document.getElementById('ph2');
+    if(!a || !b) return;
+    var showB = false;
+    setInterval(function(){
+      showB = !showB;
+      if(showB){ b.classList.add('on'); a.classList.remove('on'); }
+      else     { a.classList.add('on'); b.classList.remove('on'); }
+    }, 30000);
+  }
+
   var C = 2*Math.PI*44;
   function setArc(id, frac){
     var el = document.getElementById(id);
@@ -574,8 +606,7 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
   }
   function pad(n,l){ n = String(n); while(n.length<l) n = '0'+n; return n; }
   function tick(){
-    var diff = TARGET - Date.now();
-    if(diff < 0) diff = 0;
+    var diff = TARGET - Date.now(); if(diff < 0) diff = 0;
     var s = Math.floor(diff/1000);
     var d = Math.floor(s/86400), h = Math.floor(s%86400/3600),
         m = Math.floor(s%3600/60), sec = s%60;
@@ -587,25 +618,18 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
     setArc('arc-h', h/24); setArc('arc-m', m/60); setArc('arc-s', sec/60);
   }
 
-  /* ── Música ── */
   var aud = document.getElementById('music');
   var btn = document.getElementById('musicBtn');
   btn.addEventListener('click', function(){
-    if(aud.paused){
-      aud.play().then(function(){ btn.classList.add('playing'); }).catch(function(){});
-    } else {
-      aud.pause(); btn.classList.remove('playing');
-    }
+    if(aud.paused){ aud.play().then(function(){ btn.classList.add('playing'); }).catch(function(){}); }
+    else { aud.pause(); btn.classList.remove('playing'); }
   });
 
-  /* ── Apertura ── */
   function open(){
     if(started) return;
     started = true;
-    var gate = document.getElementById('gate');
-    /* estrenar el audio bajo el mismo gesto */
     aud.play().then(function(){ btn.classList.add('playing'); }).catch(function(){});
-    gate.classList.add('gone');
+    document.getElementById('gate').classList.add('gone');
     document.getElementById('page').classList.add('on');
     reveal();
   }
@@ -616,39 +640,8 @@ footer .sec-bg{background-image:url('botanica3.png');opacity:.16}
     if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(); }
   });
 
-  petals();
-  tick();
-  setInterval(tick, 1000);
-  /* si algo falla con la puerta, el contenido no queda oculto para siempre */
+  petals(); portrait(); tick(); setInterval(tick, 1000);
   setTimeout(function(){ if(!started) document.getElementById('page').classList.add('on'); }, 9000);
-})();
-</script>
-<script>
-/* ELYSIUM AUDIO UNLOCK v1 — la musica se estrena DENTRO del primer gesto real del invitado.
-   iOS/Chrome retiran el permiso del gesto a los pocos ms, asi que un play() que corre al
-   terminar el video del sobre llega tarde y es rechazado en silencio. */
-(function(){
-  if(window.__elyAudioUnlock) return; window.__elyAudioUnlock=1;
-  var done=false, tries=0;
-  function A(){ return document.querySelector('audio'); }
-  function unlock(){
-    if(done) return;
-    var a=A(); if(!a) return;
-    try{ if(a.preload==='none'){ a.preload='auto'; a.load(); } }catch(e){}
-    if(!a.paused){ done=true; return; }
-    var p;
-    try{ p=a.play(); }catch(e){ return; }
-    if(p && p.then){ p.then(function(){ done=true; }).catch(function(){}); }
-    else { done=true; }
-  }
-  ['pointerdown','touchstart','touchend','click','keydown'].forEach(function(ev){
-    document.addEventListener(ev, unlock, {capture:true, passive:true});
-  });
-  var iv=setInterval(function(){
-    var a=A();
-    if(done || (a && !a.paused)){ done=true; clearInterval(iv); return; }
-    if(++tries>120) clearInterval(iv);
-  },1000);
 })();
 </script>
 </body>
