@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Save the Date · Lekshmy Jaylin · 30 de mayo de 2027</title>
-<meta name="description" content="Lekshmy Jaylin Torres celebra sus XV Años el domingo 30 de mayo de 2027 en Centerville, Ohio. Aparta la fecha.">
+<title>Save the Date · Lekshmy Jaylin · Sweet XVI</title>
+<meta name="description" content="Sweet XVI · Lekshmy Jaylin Torres · 30 de mayo de 2027 / May 30, 2027 · Centerville, Ohio. Aparta la fecha · Save the date.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://save-the-date-lekshmy-jaylin.vercel.app/">
-<meta property="og:title" content="Save the Date · Lekshmy Jaylin · Mis XV Años">
-<meta property="og:description" content="Domingo 30 de mayo de 2027 · Centerville, Ohio">
-<meta property="og:image" content="https://save-the-date-lekshmy-jaylin.vercel.app/og-image.jpg">
+<meta property="og:url" content="https://save-the-date-sweet-16-lekshmy-jaylin.vercel.app/">
+<meta property="og:title" content="Save the Date · Lekshmy Jaylin · Sweet XVI">
+<meta property="og:description" content="Sweet XVI · 30 de mayo de 2027 · May 30, 2027 · Centerville, Ohio">
+<meta property="og:image" content="https://save-the-date-sweet-16-lekshmy-jaylin.vercel.app/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://save-the-date-lekshmy-jaylin.vercel.app/og-image.jpg">
+<meta name="twitter:image" content="https://save-the-date-sweet-16-lekshmy-jaylin.vercel.app/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Jost:wght@400;500&display=swap" rel="stylesheet">
@@ -378,15 +378,62 @@ footer::before{
 #gate.playing .env-cta{opacity:0}
 .env-line{display:block;width:1px;height:34px;margin:0 auto 12px;background:linear-gradient(to bottom,transparent,#6E470E)}
 .env-cta .gate-cta{background:rgba(254,255,237,.82);padding:9px 20px 9px calc(20px + .24em);border:1px solid rgba(153,101,21,.3)}
+
+/* ══════ SELECTOR DE IDIOMA ══════ */
+#lang{position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:linear-gradient(170deg,#FFF1FD 0%,#FEFFED 58%,#F7E7CE 100%);transition:opacity .7s ease,visibility .7s}
+#lang::before{content:'';position:absolute;inset:0;background:url('ink-hero.jpg') center/cover;opacity:.45}
+#lang.gone{opacity:0;visibility:hidden;pointer-events:none}
+.lang-card{position:relative;text-align:center;width:100%;max-width:320px;padding:40px 28px 34px;
+  background:rgba(254,255,237,.9);border:1px solid var(--border);box-shadow:0 22px 60px rgba(120,75,20,.18)}
+.lang-mono{font-family:var(--display);font-size:58px;line-height:1;display:block}
+.lang-sub{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;color:var(--gold-dk);display:block;margin-top:6px}
+.lang-q{font-family:var(--serif);font-weight:600;font-size:19px;line-height:1.45;color:var(--ink)}
+.lang-q span{font-style:italic;color:var(--ink-soft)}
+.lang-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.lang-btns button{font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+  padding:14px 6px 14px calc(6px + .14em);min-height:48px;cursor:pointer;color:var(--gold-dk);
+  background:transparent;border:1px solid var(--copper);transition:background .3s,color .3s}
+.lang-btns button:active,.lang-btns button:hover{background:linear-gradient(140deg,#C99A4E,#996515);color:#FEFFED}
+
+/* ══════ HERO DENTRO DEL ÓVALO ══════ */
+#hero{--W:min(112vw,57svh);padding:0 26px;min-height:max(100svh,calc(var(--W)*1.79))}
+#hero::after{height:170px}
+.stage{position:absolute;left:50%;top:50%;width:var(--W);aspect-ratio:768/1376;transform:translate(-50%,-50%);
+  background:url('ink-oval.jpg') center/100% 100% no-repeat;pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 76%,transparent 100%);
+  mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 76%,transparent 100%)}
+.hero-in{max-width:calc(var(--W)*.6)}
+#hero .hero-eyebrow{margin-bottom:calc(var(--W)*.04)}
+#hero .hero-name{font-size:calc(var(--W)*.148)}
+#hero .hero-name2{font-size:calc(var(--W)*.098)}
+#hero .hero-xv{margin:calc(var(--W)*.045) auto calc(var(--W)*.04);max-width:calc(var(--W)*.56)}
+#hero .hero-date{font-size:clamp(18px,calc(var(--W)*.047),22px);line-height:1.35}
+#hero .hero-place{font-size:clamp(17px,calc(var(--W)*.042),19px)}
+#hero .scroll-cue{bottom:18px}
 </style>
 </head>
 <body>
+
+<!-- IDIOMA -->
+<div id="lang" role="dialog" aria-label="Idioma / Language">
+  <div class="lang-card">
+    <span class="lang-mono metal">LJ</span>
+    <span class="lang-sub">Sweet XVI</span>
+    <div class="gate-rule"></div>
+    <p class="lang-q">Elige tu idioma<br><span>Choose your language</span></p>
+    <div class="lang-btns">
+      <button type="button" data-lang="es">Español</button>
+      <button type="button" data-lang="en">English</button>
+    </div>
+  </div>
+</div>
 
 <!-- SOBRE -->
 <div id="gate" role="button" tabindex="0" aria-label="Toca para abrir">
   <img id="envStill" src="sobre.jpg" alt="Sobre con sello de cera LJ">
   <video id="envVid" src="sobre-abre.mp4" muted playsinline preload="auto" poster="sobre.jpg"></video>
-  <div class="env-cta"><span class="env-line"></span><span class="gate-cta">Toca para abrir</span></div>
+  <div class="env-cta"><span class="env-line"></span><span class="gate-cta" data-en="Tap to open">Toca para abrir</span></div>
 </div>
 
 <div id="petals" aria-hidden="true"></div>
@@ -395,24 +442,19 @@ footer::before{
 
   <!-- HERO -->
   <section id="hero" class="sec">
-    <div class="tex" aria-hidden="true"></div>
-    <div class="veil" aria-hidden="true"></div>
-    <div class="hero-frame" aria-hidden="true">
-      <span class="hero-corner hc-tl"></span><span class="hero-corner hc-tr"></span>
-      <span class="hero-corner hc-bl"></span><span class="hero-corner hc-br"></span>
-    </div>
-    <div class="wrap">
+    <div class="stage" aria-hidden="true"></div>
+    <div class="wrap hero-in">
       <span class="eyebrow hero-eyebrow rv">Save the Date</span>
       <span class="hero-name metal rv">Lekshmy</span>
       <span class="hero-name2 metal rv">Jaylin</span>
       <div class="hero-xv rv">
-        <span class="xv-bar"></span><span class="xv-txt">Mis XV Años</span><span class="xv-bar"></span>
+        <span class="xv-bar"></span><span class="xv-txt">Sweet XVI</span><span class="xv-bar"></span>
       </div>
-      <p class="hero-date rv">Domingo 30 de mayo de 2027</p>
+      <p class="hero-date rv" data-en="Sunday, May 30, 2027">Domingo 30 de mayo de 2027</p>
       <p class="hero-place rv">Centerville, Ohio</p>
     </div>
     <div class="scroll-cue" aria-hidden="true">
-      <span class="cue-txt">Desliza</span><span class="cue-chev"></span>
+      <span class="cue-txt" data-en="Scroll">Desliza</span><span class="cue-chev"></span>
     </div>
   </section>
 
@@ -429,11 +471,11 @@ footer::before{
         <span class="portrait-tag">Lekshmy Jaylin</span>
       </div>
       <div class="card rv">
-        <span class="eyebrow">Cumplo quince</span>
-        <h2 class="ttl">Aparta la fecha</h2>
+        <span class="eyebrow" data-en="I&#39;m turning sixteen">Cumplo dieciséis</span>
+        <h2 class="ttl" data-en="Save the date">Aparta la fecha</h2>
         <div class="orn"><span class="orn-line"></span><span class="orn-s"></span><span class="orn-d"></span><span class="orn-s"></span><span class="orn-line"></span></div>
-        <p class="p">Hay días que se sueñan mucho antes de vivirse. El mío ya tiene fecha, y no me lo imagino sin ti.</p>
-        <p class="p">Antes de que llegue la invitación, solo quiero pedirte algo sencillo: guarda este día para mí.</p>
+        <p class="p" data-en="Some days are dreamed of long before they are lived. Mine already has a date, and I can&#39;t imagine it without you.">Hay días que se sueñan mucho antes de vivirse. El mío ya tiene fecha, y no me lo imagino sin ti.</p>
+        <p class="p" data-en="Before the invitation arrives, I only ask one simple thing: please save this day for me.">Antes de que llegue la invitación, solo quiero pedirte algo sencillo: guarda este día para mí.</p>
         <p class="sig">Lekshmy</p>
       </div>
     </div>
@@ -445,17 +487,17 @@ footer::before{
     <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
       <div class="card day-card rv">
-        <span class="eyebrow">El día</span>
+        <span class="eyebrow" data-en="The day">El día</span>
         <div class="datebox">
-          <div class="dcol"><span class="d-lbl">Domingo</span></div>
+          <div class="dcol"><span class="d-lbl" data-en="Sunday">Domingo</span></div>
           <span class="dsep" aria-hidden="true"></span>
           <div class="dcol"><span class="d-num metal">30</span></div>
           <span class="dsep" aria-hidden="true"></span>
-          <div class="dcol"><span class="d-lbl">Mayo</span><span class="d-yr">2027</span></div>
+          <div class="dcol"><span class="d-lbl" data-en="May">Mayo</span><span class="d-yr">2027</span></div>
         </div>
         <div class="orn"><span class="orn-line"></span><span class="orn-s"></span><span class="orn-d"></span><span class="orn-s"></span><span class="orn-line"></span></div>
         <p class="d-city">Centerville, Ohio</p>
-        <p class="cd-head">Faltan</p>
+        <p class="cd-head" data-en="Countdown">Faltan</p>
         <div class="cd" id="cd">
           <div class="cd-unit">
             <div class="cd-dial">
@@ -469,7 +511,7 @@ footer::before{
               </svg>
               <span class="cd-val" id="cd-d">—</span>
             </div>
-            <span class="cd-lbl">Días</span>
+            <span class="cd-lbl" data-en="Days">Días</span>
           </div>
           <div class="cd-unit">
             <div class="cd-dial">
@@ -483,7 +525,7 @@ footer::before{
               </svg>
               <span class="cd-val" id="cd-h">—</span>
             </div>
-            <span class="cd-lbl">Horas</span>
+            <span class="cd-lbl" data-en="Hours">Horas</span>
           </div>
           <div class="cd-unit">
             <div class="cd-dial">
@@ -511,7 +553,7 @@ footer::before{
               </svg>
               <span class="cd-val" id="cd-s">—</span>
             </div>
-            <span class="cd-lbl">Seg</span>
+            <span class="cd-lbl" data-en="Sec">Seg</span>
           </div>
         </div>
       </div>
@@ -520,15 +562,15 @@ footer::before{
 
   <!-- PRÓXIMAMENTE -->
   <section class="sec">
-    <div class="tex" style="background-image:url('ink-oval.jpg')" aria-hidden="true"></div>
+    <div class="tex" style="background-image:url('ink-hero.jpg')" aria-hidden="true"></div>
     <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
       <div class="card rv">
-        <span class="eyebrow">Muy pronto</span>
-        <h2 class="ttl">Pronto te cuento todo</h2>
+        <span class="eyebrow" data-en="Coming soon">Muy pronto</span>
+        <h2 class="ttl" data-en="More details soon">Pronto te cuento todo</h2>
         <div class="orn"><span class="orn-line"></span><span class="orn-s"></span><span class="orn-d"></span><span class="orn-s"></span><span class="orn-line"></span></div>
-        <p class="p">Esto es solo la fecha. El lugar, la hora, el código de vestimenta y tu confirmación llegarán en la invitación completa, más cerca del día.</p>
-        <span class="note">Por ahora, solo aparta el 30 de mayo</span>
+        <p class="p" data-en="This is just the date. The venue, time, dress code and your RSVP will arrive with the full invitation, closer to the day.">Esto es solo la fecha. El lugar, la hora, el código de vestimenta y tu confirmación llegarán en la invitación completa, más cerca del día.</p>
+        <span class="note" data-en="For now, just save May 30th">Por ahora, solo aparta el 30 de mayo</span>
       </div>
     </div>
   </section>
@@ -539,9 +581,9 @@ footer::before{
     <div class="veil" aria-hidden="true"></div>
     <div class="wrap">
       <span class="f-mono metal rv">LJ</span>
-      <p class="f-date rv">30 · Mayo · 2027</p>
+      <p class="f-date rv" data-en="30 · May · 2027">30 · Mayo · 2027</p>
       <div class="f-hr"></div>
-      <p class="credit rv">Invitación digital por <a href="https://www.instagram.com/elysium.invitaciones" target="_blank" rel="noopener">@elysium.invitaciones</a></p>
+      <p class="credit rv"><span data-en="Digital invitation by">Invitación digital por</span> <a href="https://www.instagram.com/elysium.invitaciones" target="_blank" rel="noopener">@elysium.invitaciones</a></p>
     </div>
   </footer>
 
@@ -650,6 +692,21 @@ footer::before{
   gate.addEventListener('click', open);
   gate.addEventListener('keydown', function(e){
     if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(); }
+  });
+
+  /* ── Idioma ── */
+  var I18N=[].slice.call(document.querySelectorAll('[data-en]'));
+  I18N.forEach(function(el){ el.setAttribute('data-es', el.innerHTML); });
+  function setLang(l){
+    document.documentElement.lang=l;
+    I18N.forEach(function(el){ el.innerHTML = el.getAttribute(l==='en'?'data-en':'data-es'); });
+  }
+  var langBox=document.getElementById('lang');
+  [].forEach.call(langBox.querySelectorAll('button'), function(b){
+    b.addEventListener('click', function(){
+      setLang(b.getAttribute('data-lang'));
+      langBox.classList.add('gone');
+    });
   });
 
   petals(); portrait(); tick(); setInterval(tick, 1000);
