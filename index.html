@@ -369,21 +369,24 @@ footer::before{
 .eyebrow{padding-left:.3em}.cd-head{padding-left:.28em}.d-lbl{padding-left:.2em}
 .cd-lbl{padding-left:.12em}.xv-txt{padding-left:.26em}.cue-txt{padding-left:.28em}
 .gate-cta{padding-left:.24em}.gate-name{padding-left:.16em}.f-date{padding-left:.14em}
+
+#gate{padding:0;background:#EFE3D2}
+#envStill,#envVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#envVid{opacity:0;transition:opacity .25s}
+#gate.playing #envVid{opacity:1}
+.env-cta{position:absolute;left:0;right:0;bottom:calc(46px + env(safe-area-inset-bottom));text-align:center;transition:opacity .4s}
+#gate.playing .env-cta{opacity:0}
+.env-line{display:block;width:1px;height:34px;margin:0 auto 12px;background:linear-gradient(to bottom,transparent,#6E470E)}
+.env-cta .gate-cta{background:rgba(254,255,237,.82);padding:9px 20px 9px calc(20px + .24em);border:1px solid rgba(153,101,21,.3)}
 </style>
 </head>
 <body>
 
-<!-- PUERTA -->
+<!-- SOBRE -->
 <div id="gate" role="button" tabindex="0" aria-label="Toca para abrir">
-  <div class="gate-leaf" aria-hidden="true"></div>
-  <div class="gate-veil" aria-hidden="true"></div>
-  <div class="gate-card">
-    <span class="gate-mono metal">LJ</span>
-    <span class="gate-amp">Mis XV Años</span>
-    <span class="gate-name">Lekshmy Jaylin</span>
-    <div class="gate-rule"></div>
-    <span class="gate-cta">Toca para abrir</span>
-  </div>
+  <img id="envStill" src="sobre.jpg" alt="Sobre con sello de cera LJ">
+  <video id="envVid" src="sobre-abre.mp4" muted playsinline preload="auto" poster="sobre.jpg"></video>
+  <div class="env-cta"><span class="env-line"></span><span class="gate-cta">Toca para abrir</span></div>
 </div>
 
 <div id="petals" aria-hidden="true"></div>
@@ -634,9 +637,13 @@ footer::before{
     if(started) return;
     started = true;
     aud.play().then(function(){ btn.classList.add('playing'); }).catch(function(){});
-    document.getElementById('gate').classList.add('gone');
-    document.getElementById('page').classList.add('on');
-    reveal();
+    var g=document.getElementById('gate'), v=document.getElementById('envVid'), done=false;
+    function finish(){ if(done) return; done=true;
+      g.classList.add('gone'); document.getElementById('page').classList.add('on'); reveal(); }
+    g.classList.add('playing');
+    v.addEventListener('ended', finish);
+    v.play().catch(finish);
+    setTimeout(finish, 9000);
   }
 
   var gate = document.getElementById('gate');
@@ -646,7 +653,7 @@ footer::before{
   });
 
   petals(); portrait(); tick(); setInterval(tick, 1000);
-  setTimeout(function(){ if(!started) document.getElementById('page').classList.add('on'); }, 9000);
+  
 })();
 </script>
 </body>
